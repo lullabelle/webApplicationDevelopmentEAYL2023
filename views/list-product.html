@@ -27,13 +27,13 @@
                         </tr>
                     </thead>
                     <tbody>
-                        {% for product in peroducts %}
+                        {% for product in products %}
                         <tr>
                             <td>{{ product.name }}</td>
                             <td>{{ product.description }}</td>
                             <td>{{ product.price }}</td>
                         </tr>
-                        {% end for %}
+                        {% endfor %}
                     </tbody>
                 </table>
                 {% else %}

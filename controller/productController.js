@@ -10,6 +10,6 @@ module.exports = function(app){
         }catch(e){
             console.error(e);
         }
-        res.render('list-products', {products: data})
+        res.render('list-product', { products: data })
     })
 }

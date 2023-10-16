@@ -6,7 +6,6 @@ const app = express();
 
 //Configure nunjucks
 const appViews = path.join(__dirname, '/views/');
-
 const nunjuckConfig = {
     autoescape: true,
     noCache: true,
@@ -30,4 +29,5 @@ app.get('/', (req, res) => {
     res.render('pizza', {
         title: 'Pizza the Action LTD',
     });
-});
+})
+require('./controller/productController')(app);
