@@ -22,6 +22,8 @@ export async function getProductById (id: number): Promise<Product> {
 
 module.exports.createProduct = async function (product: Product): Promise<number> {
 const error: string = productValidator.validateProduct(product)
+
+console.log("Logging out product from service" ,{product})
         if (error) {
             throw new Error(error)
         }

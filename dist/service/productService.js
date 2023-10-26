@@ -87,6 +87,7 @@ module.exports.createProduct = function (product) {
             switch (_a.label) {
                 case 0:
                     error = productValidator.validateProduct(product);
+                    console.log("Logging out product from service", { product: product });
                     if (error) {
                         throw new Error(error);
                     }

@@ -51,7 +51,6 @@ module.exports = function(app: Application){
             id= await orderService.createOrder(data)
             res.redirect('/orders/' + id)
             }catch(e){
-                console.log("In here errors")
                 console.error(e);
                 res.locals.errormessage = e.message
                 res.render('add-order', req.body)
@@ -59,8 +58,22 @@ module.exports = function(app: Application){
             }
             
         })
+          /************************************** */
+    app.get('/add-orderId', async (req: Request, res: Response) => {
+        if(!req.session.product){
+            req.session.product ={}
+        }
+        res.render('add-orderId')
+    })
+    app.post('/add-orderId', async (req: Request, res: Response) => {
+        req.session.order["orderId"] = req.body.name
+
+        res.redirect('/add-orderDate')
+    })
+
+
         
-    }
+    }//end
         
     
 

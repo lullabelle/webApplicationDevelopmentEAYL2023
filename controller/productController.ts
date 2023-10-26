@@ -76,7 +76,7 @@ module.exports = function(app: Application){
         /************************************** */
 
     app.get('/add-product-confirmation', async (req: Request, res: Response) => {
-        res.render('add-product-confirmation')
+        res.render('add-product-confirmation', req.session.product)
     })
     app.post('/add-product-confirmation', async (req: Request, res: Response) => {
         let data: Product = req.session.product
@@ -86,11 +86,11 @@ module.exports = function(app: Application){
             id = await productService.createProduct(data)
             req.session.product = undefined
             res.redirect('/products/' + id)
-        }catch (e){
-            console.error(e);
-            res.locals.errormessage.e.message
-            res.render('add-product-confirmation', req.session.product)
-        }
+            }catch(e){
+                console.error(e);
+                res.locals.errormessage.e.message
+                res.render('add-product-confirmation', req.session.product)
+            }
         })
     }
        

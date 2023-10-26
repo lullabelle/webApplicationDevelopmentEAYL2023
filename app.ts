@@ -2,6 +2,7 @@ import express = require('express');
 import path = require('path');
 import nunjucks = require('nunjucks');
 import { Product } from "./model/product";
+import { Order } from "./model/order";
 var dateFilter = require('nunjucks-date-filter');
 const session = require('express-session')
  
@@ -31,10 +32,11 @@ app.use(express.json())
 
 app.use(express.urlencoded({ extended: true}));
 
-app.use(session({ secret: "NOT HARDCODED SECRET", cookie: {maxAge: 60000}}));
+app.use(session({ secret: "NOT HARDCODED SECRET", cookie: {maxAge: 60000}, resave: true, saveUnitialised: true }));
 declare module "express-session" {
     interface SessionData {
         product: Product;
+        order: Order;
     }
 }
 

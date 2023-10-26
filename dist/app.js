@@ -4,6 +4,7 @@ var express = require("express");
 var path = require("path");
 var nunjucks = require("nunjucks");
 var dateFilter = require('nunjucks-date-filter');
+var session = require('express-session');
 var app = express();
 //Configure nunjucks
 var appViews = path.join(__dirname, '/views/');
@@ -22,6 +23,7 @@ app.set('view engine', 'html');
 app.use('/public', express.static(path.join(__dirname, 'public')));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(session({ secret: "NOT HARDCODED SECRET", cookie: { maxAge: 60000 }, resave: true, saveUnitialised: true }));
 app.listen(3000, function () {
     console.log('Server listening on port 3000');
 });

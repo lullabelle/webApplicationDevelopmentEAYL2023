@@ -110,5 +110,85 @@ module.exports = function (app) {
             }
         });
     }); });
+    /************************************** */
+    app.get('/add-product-name', function (req, res) { return __awaiter(_this, void 0, void 0, function () {
+        return __generator(this, function (_a) {
+            if (!req.session.product) {
+                req.session.product = {};
+            }
+            res.render('add-product-name');
+            return [2 /*return*/];
+        });
+    }); });
+    app.post('/add-product-name', function (req, res) { return __awaiter(_this, void 0, void 0, function () {
+        return __generator(this, function (_a) {
+            req.session.product["name"] = req.body.name;
+            res.redirect('/add-product-description');
+            return [2 /*return*/];
+        });
+    }); });
+    /************************************** */
+    app.get('/add-product-description', function (req, res) { return __awaiter(_this, void 0, void 0, function () {
+        return __generator(this, function (_a) {
+            res.render('add-product-description');
+            return [2 /*return*/];
+        });
+    }); });
+    app.post('/add-product-description', function (req, res) { return __awaiter(_this, void 0, void 0, function () {
+        return __generator(this, function (_a) {
+            req.session.product["description"] = req.body.description;
+            res.redirect('/add-product-price');
+            return [2 /*return*/];
+        });
+    }); });
+    /************************************** */
+    app.get('/add-product-price', function (req, res) { return __awaiter(_this, void 0, void 0, function () {
+        return __generator(this, function (_a) {
+            res.render('add-product-price');
+            return [2 /*return*/];
+        });
+    }); });
+    app.post('/add-product-price', function (req, res) { return __awaiter(_this, void 0, void 0, function () {
+        return __generator(this, function (_a) {
+            req.session.product["price"] = req.body.price;
+            res.redirect('/add-product-confirmation');
+            return [2 /*return*/];
+        });
+    }); });
+    /************************************** */
+    app.get('/add-product-confirmation', function (req, res) { return __awaiter(_this, void 0, void 0, function () {
+        return __generator(this, function (_a) {
+            res.render('add-product-confirmation', req.session.product);
+            return [2 /*return*/];
+        });
+    }); });
+    app.post('/add-product-confirmation', function (req, res) { return __awaiter(_this, void 0, void 0, function () {
+        var data, id, e_4;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    data = req.session.product;
+                    console.log(data);
+                    _a.label = 1;
+                case 1:
+                    _a.trys.push([1, 3, , 4]);
+                    return [4 /*yield*/, productService.createProduct(data)];
+                case 2:
+                    //console.log("in try")
+                    id = _a.sent();
+                    req.session.product = undefined;
+                    res.redirect('/products/' + id);
+                    return [3 /*break*/, 4];
+                case 3:
+                    e_4 = _a.sent();
+                    //console.log("in catch")
+                    console.error(e_4);
+                    res.locals.errormessage.e.message;
+                    res.render('add-product-confirmation', req.session.product);
+                    return [3 /*break*/, 4];
+                case 4: return [2 /*return*/];
+            }
+        });
+    }); });
 };
 //# sourceMappingURL=productController.js.map
