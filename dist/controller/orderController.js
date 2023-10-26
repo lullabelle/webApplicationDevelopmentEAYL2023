@@ -36,7 +36,8 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var orderService = require("../service/orderService");
+var orderService = require('../service/orderService');
+var customerService = require('../service/customerService');
 module.exports = function (app) {
     var _this = this;
     app.get('/orders', function (req, res) { return __awaiter(_this, void 0, void 0, function () {
@@ -77,6 +78,54 @@ module.exports = function (app) {
                 case 3:
                     res.render('view-order', { order: data });
                     return [2 /*return*/];
+            }
+        });
+    }); });
+    app.get('/add-order', function (req, res) { return __awaiter(_this, void 0, void 0, function () {
+        var data, e_3;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    _a.trys.push([0, 2, , 3]);
+                    return [4 /*yield*/, customerService.getCustomers()];
+                case 1:
+                    data = _a.sent();
+                    return [3 /*break*/, 3];
+                case 2:
+                    e_3 = _a.sent();
+                    console.error(e_3);
+                    return [3 /*break*/, 3];
+                case 3:
+                    res.render('add-order', {
+                        customers: data,
+                    });
+                    return [2 /*return*/];
+            }
+        });
+    }); });
+    app.post('/add-order', function (req, res) { return __awaiter(_this, void 0, void 0, function () {
+        var data, id, e_4;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    data = req.body;
+                    _a.label = 1;
+                case 1:
+                    _a.trys.push([1, 3, , 4]);
+                    return [4 /*yield*/, orderService.createOrder(data)];
+                case 2:
+                    id = _a.sent();
+                    res.redirect('/orders/' + id);
+                    return [3 /*break*/, 4];
+                case 3:
+                    e_4 = _a.sent();
+                    console.log("In here errors");
+                    console.error(e_4);
+                    res.locals.errormessage = e_4.message;
+                    res.render('add-order', req.body);
+                    console.log(res.locals.errormessage);
+                    return [3 /*break*/, 4];
+                case 4: return [2 /*return*/];
             }
         });
     }); });

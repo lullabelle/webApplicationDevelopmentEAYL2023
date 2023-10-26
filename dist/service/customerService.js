@@ -36,73 +36,26 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getProductById = exports.getProducts = void 0;
-var axios = require('axios');
-var productValidator = require('../validator/productValidator');
-var API_BASE_URL = 'http://localhost:8080/api';
-function getProducts() {
+exports.getCustomers = void 0;
+var axios_1 = require("axios");
+function getCustomers() {
     return __awaiter(this, void 0, void 0, function () {
-        var response, e_1;
+        var data, e_1;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
                     _a.trys.push([0, 2, , 3]);
-                    return [4 /*yield*/, axios.get("".concat(API_BASE_URL, "/products"))];
+                    return [4 /*yield*/, axios_1.default.get("http://localhost:8080/api/customers")];
                 case 1:
-                    response = _a.sent();
-                    return [2 /*return*/, response.data];
+                    data = (_a.sent()).data;
+                    return [2 /*return*/, data];
                 case 2:
                     e_1 = _a.sent();
-                    throw new Error('Could not get products');
+                    throw new Error('Could not get Customers');
                 case 3: return [2 /*return*/];
             }
         });
     });
 }
-exports.getProducts = getProducts;
-function getProductById(id) {
-    return __awaiter(this, void 0, void 0, function () {
-        var response, e_2;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0:
-                    _a.trys.push([0, 2, , 3]);
-                    return [4 /*yield*/, axios.get("".concat(API_BASE_URL, "/products/").concat(id))];
-                case 1:
-                    response = _a.sent();
-                    return [2 /*return*/, response.data];
-                case 2:
-                    e_2 = _a.sent();
-                    throw new Error('Cannot find product');
-                case 3: return [2 /*return*/];
-            }
-        });
-    });
-}
-exports.getProductById = getProductById;
-module.exports.createProduct = function (product) {
-    return __awaiter(this, void 0, void 0, function () {
-        var error, response, e_3;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0:
-                    error = productValidator.validateProduct(product);
-                    if (error) {
-                        throw new Error(error);
-                    }
-                    _a.label = 1;
-                case 1:
-                    _a.trys.push([1, 3, , 4]);
-                    return [4 /*yield*/, axios.post("".concat(API_BASE_URL, "/products/"), product)];
-                case 2:
-                    response = _a.sent();
-                    return [2 /*return*/, response.data];
-                case 3:
-                    e_3 = _a.sent();
-                    throw new Error('Could not create product');
-                case 4: return [2 /*return*/];
-            }
-        });
-    });
-};
-//# sourceMappingURL=productService.js.map
+exports.getCustomers = getCustomers;
+//# sourceMappingURL=customerService.js.map

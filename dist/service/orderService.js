@@ -38,6 +38,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getOrderById = exports.getAllOrders = void 0;
 var axios = require('axios');
+var orderValidator = require('../validator/orderValidator');
 function getAllOrders() {
     return __awaiter(this, void 0, void 0, function () {
         var response, e_1;
@@ -78,4 +79,30 @@ function getOrderById(id) {
     });
 }
 exports.getOrderById = getOrderById;
+module.exports.createOrder = function (order) {
+    return __awaiter(this, void 0, void 0, function () {
+        var error, response, e_3;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    error = orderValidator.validateOrder(order);
+                    if (error) {
+                        throw new Error(error);
+                    }
+                    console.log(order);
+                    _a.label = 1;
+                case 1:
+                    _a.trys.push([1, 3, , 4]);
+                    return [4 /*yield*/, axios.post("http://localhost:8080/api/orders/", order)];
+                case 2:
+                    response = _a.sent();
+                    return [2 /*return*/, response.data];
+                case 3:
+                    e_3 = _a.sent();
+                    throw new Error('Could not create order');
+                case 4: return [2 /*return*/];
+            }
+        });
+    });
+};
 //# sourceMappingURL=orderService.js.map

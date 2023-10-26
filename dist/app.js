@@ -20,6 +20,8 @@ env.addFilter('is_undefined', function (obj) {
 //Configure Express
 app.set('view engine', 'html');
 app.use('/public', express.static(path.join(__dirname, 'public')));
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.listen(3000, function () {
     console.log('Server listening on port 3000');
 });
